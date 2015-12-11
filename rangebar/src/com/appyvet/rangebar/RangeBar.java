@@ -1268,14 +1268,12 @@ public class RangeBar extends View {
             float leftThumbXDistance = mIsRangeBar ? Math.abs(mLeftThumb.getX() - x) : 0;
             float rightThumbXDistance = Math.abs(mRightThumb.getX() - x);
 
-            if (leftThumbXDistance < rightThumbXDistance) {
-                if (mIsRangeBar) {
-                    movePin(mLeftThumb, x);
-                    releasePin(mLeftThumb);
-                }
-            } else {
+            if (!mIsRangeBar || rightThumbXDistance < leftThumbXDistance) {
                 movePin(mRightThumb, x);
                 releasePin(mRightThumb);
+            } else {
+                movePin(mLeftThumb, x);
+                releasePin(mLeftThumb);
             }
 
             // Get the updated nearest tick marks for each thumb.
